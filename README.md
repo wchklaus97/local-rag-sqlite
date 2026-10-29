@@ -34,7 +34,7 @@ Stages 1–4 run once per document set (`rag ingest`). Stages 5–6 run per ques
 ## Quickstart
 
 ```bash
-git clone <this repo> && cd local-rag-sqlite
+git clone https://github.com/wchklaus97/local-rag-sqlite.git && cd local-rag-sqlite
 uv sync                      # or: python -m venv .venv && source .venv/bin/activate && pip install -e .
 uv run rag ingest examples/harbour-lane      # fictional HK group: hk-hq/{hr,finance,compliance}, sz-subsidiary/operations
 uv run rag ask "年假申請要提前幾多日？"
@@ -131,6 +131,16 @@ They are skipped in a normal `uv run pytest`. They check grounded answers, citat
 ## Contributing
 
 Good first issues: a Markdown-heading-aware splitter, a token-based size option, OCR for scanned PDFs, an eval script (question → expected source). Keep `chunk.py` dependency-free. MIT licensed.
+
+## Series
+
+Three small open-source demos built around one fictional Hong Kong company, each with one theme and one module you can lift out:
+
+| Repo | Theme | Lift-out module |
+|---|---|---|
+| [local-rag-sqlite](https://github.com/wchklaus97/local-rag-sqlite) | Classic RAG pipeline, chunking first | `chunk.py` |
+| [multimodal-page-rag](https://github.com/wchklaus97/multimodal-page-rag) | Page-level units + late fusion | `fusion.py` |
+| [agent-rag-pydantic-ai](https://github.com/wchklaus97/agent-rag-pydantic-ai) | Retrieval as an agent tool | `tools.py` |
 
 ## License
 
