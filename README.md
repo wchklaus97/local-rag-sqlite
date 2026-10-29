@@ -64,6 +64,17 @@ Switching embedders requires re-ingesting; the store records which embedder buil
 
 Optional UI: `uv sync --extra ui && uv run streamlit run ui/streamlit_app.py`
 
+## Evaluation (`rag eval`)
+
+`eval/harbour_lane_qa.jsonl` holds 25 hand-written questions (zh-HK + English) about the fictional company, each with the source file and an **evidence string** the retrieved chunk must contain. `rag eval` rebuilds the index for every combination and reports hit@1, hit@k and MRR, overall and per language.
+
+```bash
+uv run rag eval                                   # hash embedder, chunk sizes 100/200/400/800, overlap 0/15%
+uv sync --extra local && uv run rag eval --embedders hash,local --show-misses
+```
+
+Headline from [eval/RESULTS.md](eval/RESULTS.md): English questions on Chinese documents score hit@3 **0.29–0.88 with `hash`** but **0.82–1.00 with the multilingual model**; best overall was multilingual at chunk_size 400 / overlap 60 (hit@3 1.00, MRR 0.82). Read the results file for the traps (chunk_size 800 looks great only because 4 chunks make top-3 trivial; one question = 0.04, so small gaps are noise).
+
 ## Configuration
 
 `rag.toml` (env vars override):

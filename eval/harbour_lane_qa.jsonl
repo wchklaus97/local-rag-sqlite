@@ -1,0 +1,25 @@
+{"id": "leave-days-zh", "lang": "zh", "q": "放大假一年有幾多日？", "source": "hk-hq/hr/staff-handbook.md", "evidence": "15 日年假"}
+{"id": "leave-days-en", "lang": "en", "q": "How many days of annual leave do full-time staff get?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "15 日年假"}
+{"id": "leave-notice-en", "lang": "en", "q": "How far in advance must I request time off?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "提前 5 個工作天"}
+{"id": "leave-carry-zh", "lang": "zh", "q": "冇放晒嘅假可唔可以留到下年先放？", "source": "hk-hq/hr/staff-handbook.md", "evidence": "順延"}
+{"id": "sick-note-en", "lang": "en", "q": "Do I need a doctor's note when I am off sick?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "sick leave certificate"}
+{"id": "medical-start-en", "lang": "en", "q": "When does my medical insurance start covering me?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "試用期後翌日生效"}
+{"id": "wfh-en", "lang": "en", "q": "How many days a week can I work from home?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "喺家工作 2 日"}
+{"id": "typhoon-en", "lang": "en", "q": "Do I have to go to the office when typhoon signal 8 is up?", "source": "hk-hq/hr/staff-handbook.md", "evidence": "颱風"}
+{"id": "mpf-zh", "lang": "zh", "q": "公司點樣處理強積金供款？", "source": "hk-hq/hr/staff-handbook.md", "evidence": "強積金"}
+{"id": "claim-deadline-zh", "lang": "zh", "q": "報銷要喺幾耐之內交？", "source": "hk-hq/finance/expense-claims.md", "evidence": "30 日內提交"}
+{"id": "client-dinner-en", "lang": "en", "q": "Who approves a client dinner costing HKD 1,000 per person?", "source": "hk-hq/finance/expense-claims.md", "evidence": "HKD 800"}
+{"id": "director-approval-en", "lang": "en", "q": "Which receipts need the Finance Director to sign off?", "source": "hk-hq/finance/expense-claims.md", "evidence": "Finance Director"}
+{"id": "rmb-rate-zh", "lang": "zh", "q": "人民幣嘅開支用咩匯率換算？", "source": "hk-hq/finance/expense-claims.md", "evidence": "內部匯率"}
+{"id": "claim-payday-en", "lang": "en", "q": "When are approved expense claims paid out?", "source": "hk-hq/finance/expense-claims.md", "evidence": "每月 15 日"}
+{"id": "taxi-en", "lang": "en", "q": "Can I expense a HKD 400 taxi ride without approval?", "source": "hk-hq/finance/expense-claims.md", "evidence": "HKD 300"}
+{"id": "data-leak-en", "lang": "en", "q": "What should I do if I suspect customer data has leaked?", "source": "hk-hq/compliance/personal-data-and-aml.md", "evidence": "24 小時內"}
+{"id": "gmail-zh", "lang": "zh", "q": "可唔可以將客戶名單 send 去自己個 Gmail？", "source": "hk-hq/compliance/personal-data-and-aml.md", "evidence": "私人電郵戶口"}
+{"id": "kyc-en", "lang": "en", "q": "What documents do we need before onboarding a new corporate client?", "source": "hk-hq/compliance/personal-data-and-aml.md", "evidence": "最終實益擁有人"}
+{"id": "gift-en", "lang": "en", "q": "Do I have to declare a gift from a supplier?", "source": "hk-hq/compliance/personal-data-and-aml.md", "evidence": "HKD 500"}
+{"id": "marketing-en", "lang": "en", "q": "Can we send promotional emails to customers?", "source": "hk-hq/compliance/personal-data-and-aml.md", "evidence": "Direct marketing"}
+{"id": "supplier-docs-en", "lang": "en", "q": "What does a new supplier in Shenzhen need to hand in?", "source": "sz-subsidiary/operations/supplier-onboarding.md", "evidence": "營業執照副本"}
+{"id": "big-po-zh", "lang": "zh", "q": "深圳張訂單超過五萬人民幣要邊個批？", "source": "sz-subsidiary/operations/supplier-onboarding.md", "evidence": "RMB 50,000"}
+{"id": "supplier-payrun-en", "lang": "en", "q": "How often are suppliers paid?", "source": "sz-subsidiary/operations/supplier-onboarding.md", "evidence": "星期五"}
+{"id": "vat-invoice-zh", "lang": "zh", "q": "冇專票可唔可以俾錢供應商？", "source": "sz-subsidiary/operations/supplier-onboarding.md", "evidence": "增值稅專用發票"}
+{"id": "urgent-order-en", "lang": "en", "q": "Can an urgent order be approved verbally?", "source": "sz-subsidiary/operations/supplier-onboarding.md", "evidence": "口頭批准"}

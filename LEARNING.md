@@ -48,6 +48,13 @@ Read the code in this order: `ingest.py → chunk.py → embed.py → store.py �
 資料夾 `hk-hq/finance/` 會變成 `entity=hk-hq`、`department=finance`，用 `rag ask --dept finance` 過濾。
 陷阱：過濾係向量搜尋**之後**先做，所以會將候選放大 5 倍；部門太冷門仍可能少過 k 個結果。
 
+### 評估：用數字代替「睇落啱」（`rag eval`）
+`eval/harbour_lane_qa.jsonl` 有 25 條中英問題，每條註明正確文件同一段**證據文字**；檢索到嘅 chunk 要包含證據先算命中。指標：hit@1、hit@k、MRR。實測結果（見 `eval/RESULTS.md`）：
+1. **雙語香港文件，最關鍵係 embedding 模型。** 用英文問中文政策：`hash` 嘅 hit@3 只有 0.29–0.88，多語模型有 0.82–1.00。`hash` 中文題全中，只係因為問題同文件用咗同樣嘅字 —— **淨係用一種語言測試，就會睇唔到呢個問題。**
+2. 最好設定：多語模型 + chunk_size 400 + overlap 60（hit@3 1.00，MRR 0.82）。
+3. **陷阱：chunk_size 800 數字好靚但幾乎冇意義** —— 每份文件變一個 chunk，總共 4 個，top-3 已經包咗 75% 語料。睇 hit@k 一定要同 chunk 數一齊睇。
+4. **細嘅評估集好多雜訊**：一條題 = 0.04。overlap 有時「變差」，其實只係一兩條題嘅切口位置唔同。差距少過約 0.08 當雜訊，調參之前先加多啲題目。
+
 ### 練習
 0. 用 `examples/harbour-lane` 問「年假申請要提前幾多日？」，再加 `--dept finance`，睇結果點變。
 1. 將 `chunk_size` 改做 200／2000，重新 ingest，睇 `rag ask` 嘅檢索結果點變。
@@ -98,6 +105,13 @@ The first four build the index (once). The last two answer a question (every tim
 ### Company structure → metadata
 A folder like `hk-hq/finance/` becomes `entity=hk-hq`, `department=finance`; filter with `rag ask --dept finance`.
 Pitfall: the filter runs *after* vector search, so the candidate pool is widened 5x; a rare department can still leave fewer than k results.
+
+### Evaluation: numbers instead of "looks right" (`rag eval`)
+`eval/harbour_lane_qa.jsonl` has 25 zh/en questions, each with the expected file and an **evidence string**; a retrieved chunk only counts if it contains the evidence. Metrics: hit@1, hit@k, MRR. Measured results (see `eval/RESULTS.md`):
+1. **For a bilingual HK corpus the embedder matters most.** English questions on Chinese policies: `hash` hit@3 0.29–0.88 vs multilingual 0.82–1.00. `hash` looks perfect on Chinese questions only because they share words with the documents - **a single-language test would have hidden this.**
+2. Best setting: multilingual + chunk_size 400 + overlap 60 (hit@3 1.00, MRR 0.82).
+3. **Trap: chunk_size 800 looks great but is nearly meaningless** - one chunk per document, 4 in total, so top-3 already covers 75% of the corpus. Always read hit@k next to the chunk count.
+4. **Small eval sets are noisy:** one question = 0.04. Overlap sometimes "hurts", which is really one or two questions landing on a different boundary. Treat gaps under ~0.08 as noise and grow the set before tuning.
 
 ### Exercises
 0. Ingest `examples/harbour-lane`, ask the annual-leave question in Cantonese, then add `--dept finance` and see what changes.

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 from .config import load_config
 from .embed import get_embedder
@@ -66,6 +67,33 @@ def cmd_reset(args, cfg) -> int:
     return 0
 
 
+def cmd_eval(args, cfg) -> int:
+    from .embed import HashEmbedder
+    from .evaluate import load_qa, run_grid, to_markdown
+
+    qa = load_qa(args.qa)
+    embedders = []
+    for name in args.embedders.split(","):
+        emb = get_embedder(name.strip(), cfg.embed_model if name.strip() == cfg.embed_provider else "")
+        if name.strip() == "local" and isinstance(emb, HashEmbedder):
+            print("skipping 'local': sentence-transformers not installed (pip install -e '.[local]')", file=sys.stderr)
+            continue
+        embedders.append(emb)
+    sizes = [int(x) for x in args.sizes.split(",")]
+    overlaps = [float(x) for x in args.overlaps.split(",")]
+    print(f"Evaluating {len(qa)} questions on {args.folder} ...")
+    results = run_grid(args.folder, qa, embedders, sizes, overlaps, args.k, log=print)
+    table = to_markdown(results, args.k, len(qa))
+    print("\n" + table)
+    if args.show_misses:
+        for r in results:
+            print(f"misses {r.embedder} size={r.chunk_size} overlap={r.chunk_overlap}: {', '.join(r.misses) or '-'}")
+    if args.out:
+        Path(args.out).write_text(table, encoding="utf-8")
+        print(f"wrote {args.out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="rag", description=__doc__)
     p.add_argument("--config", help="path to rag.toml (default: ./rag.toml or $RAG_CONFIG)")
@@ -84,6 +112,17 @@ def main(argv: list[str] | None = None) -> int:
 
     s = sub.add_parser("stats", help="show what is in the index")
     s.set_defaults(fn=cmd_stats)
+
+    s = sub.add_parser("eval", help="score retrieval on a QA set across embedders and chunk settings")
+    s.add_argument("--qa", default="eval/harbour_lane_qa.jsonl")
+    s.add_argument("--folder", default="examples/harbour-lane")
+    s.add_argument("--embedders", default="hash", help="comma list, e.g. hash,local")
+    s.add_argument("--sizes", default="100,200,400,800", help="chunk sizes (characters)")
+    s.add_argument("--overlaps", default="0,0.15", help="overlap as a fraction of chunk size")
+    s.add_argument("-k", type=int, default=3)
+    s.add_argument("--out", help="write the markdown table here")
+    s.add_argument("--show-misses", action="store_true")
+    s.set_defaults(fn=cmd_eval)
 
     s = sub.add_parser("reset", help="delete the index; add --rebuild FOLDER to re-ingest")
     s.add_argument("--rebuild", metavar="FOLDER", help="re-ingest this folder after deleting")
