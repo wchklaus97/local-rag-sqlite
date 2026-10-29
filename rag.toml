@@ -1,0 +1,18 @@
+# Pipeline settings. Env vars (RAG_DB, EMBED_PROVIDER, EMBED_MODEL, LLM_PROVIDER, LLM_MODEL) override these.
+
+db_path = "rag.db"
+
+# --- Stage 2: chunking (an ingest/RAG-layer decision; the embedding API never sees these) ---
+chunk_size = 800      # max characters per chunk
+chunk_overlap = 120   # characters shared between neighbouring chunks
+
+# --- Stage 3: embedding ---
+embed_provider = "local"   # local | hash | openai | gemini
+embed_model = ""           # empty = provider default
+
+# --- Stage 5: retrieval ---
+top_k = 4
+
+# --- Stage 6: generation ---
+llm_provider = "auto"      # auto | openai | gemini | ollama | none
+llm_model = ""             # empty = provider default
