@@ -104,6 +104,30 @@ LEARNING.md     what / why / common mistakes (繁體中文 zh-HK + English)
 uv sync --extra dev && uv run pytest
 ```
 
+## Run with OpenRouter (or any OpenAI-compatible API)
+
+Keep the key in your shell (e.g. `~/.zshrc`), never in the repo. `.env` files are git-ignored.
+
+```bash
+export OPENROUTER_API_KEY="..."
+export OPENAI_API_KEY="$OPENROUTER_API_KEY"
+export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
+```
+
+```bash
+LLM_PROVIDER=openai LLM_MODEL=openai/gpt-4o-mini uv run rag ask "Who must approve a taxi fare over HKD 300?" --dept finance
+```
+
+Model names use OpenRouter's `vendor/model` form. Embeddings stay local (`local` or `hash`); this demo does not send document embeddings to OpenRouter.
+
+### Live tests (opt-in, cost a few cents)
+
+```bash
+RUN_LIVE_LLM=1 LIVE_MODEL=openai/gpt-4o-mini uv run pytest tests/test_live_llm.py -v
+```
+
+They are skipped in a normal `uv run pytest`. They check grounded answers, citations, filters and "I don't know" for out-of-scope questions.
+
 ## Contributing
 
 Good first issues: a Markdown-heading-aware splitter, a token-based size option, OCR for scanned PDFs, an eval script (question → expected source). Keep `chunk.py` dependency-free. MIT licensed.
