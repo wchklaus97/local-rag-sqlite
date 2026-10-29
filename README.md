@@ -147,13 +147,14 @@ Good first issues: a Markdown-heading-aware splitter, a token-based size option,
 
 ## Series
 
-Three small open-source demos built around one fictional Hong Kong company, each with one theme and one module you can lift out:
+Four small open-source demos built around one fictional Hong Kong company, each with one theme and one module you can lift out:
 
 | Repo | Theme | Lift-out module |
 |---|---|---|
 | [local-rag-sqlite](https://github.com/wchklaus97/local-rag-sqlite) | Classic RAG pipeline, chunking first | `chunk.py` |
 | [multimodal-page-rag](https://github.com/wchklaus97/multimodal-page-rag) | Page-level units + late fusion | `fusion.py` |
 | [agent-rag-pydantic-ai](https://github.com/wchklaus97/agent-rag-pydantic-ai) | Retrieval as an agent tool | `tools.py` |
+| [hybrid-search-rag](https://github.com/wchklaus97/hybrid-search-rag) | Hybrid BM25 + vector + rerank for code-mixed text | `cjk_tokenize.py` |
 
 ## License
 
