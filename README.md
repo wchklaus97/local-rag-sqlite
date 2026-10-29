@@ -1,5 +1,7 @@
 # local-rag-sqlite
 
+[![tests](https://github.com/wchklaus97/local-rag-sqlite/actions/workflows/tests.yml/badge.svg)](https://github.com/wchklaus97/local-rag-sqlite/actions/workflows/tests.yml)
+
 **Theme: the anatomy of a RAG pipeline, with chunking as the stage to understand first.**
 
 A small, readable, **local** RAG pipeline you can clone and run. One SQLite file holds the chunks and their vectors ([sqlite-vec](https://github.com/asg017/sqlite-vec)). Each pipeline stage is its own module so you can read the code in the order the data flows.
